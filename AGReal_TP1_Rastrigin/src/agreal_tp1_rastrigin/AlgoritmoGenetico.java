@@ -40,7 +40,7 @@ public class AlgoritmoGenetico {
     Populacao populacao;
     Populacao novaPopulacao;
     Individuo melhorSolucao;
-    
+
     public AlgoritmoGenetico(Integer tamanho, Double pCrossover, Double pMutacao, Integer geracoes, Problema problema, Double minimo, Double maximo, Integer nVariaveis, Integer caso) {
         this.tamanho = tamanho;
         this.pCrossover = pCrossover;
@@ -54,10 +54,10 @@ public class AlgoritmoGenetico {
     }
 
     public Individuo getMelhorSolucao() {
-        return melhorSolucao;
+        return this.melhorSolucao;
     }
-    
-    public void setMelhorSolucao(){
+
+    public void setMelhorSolucao(Individuo melhorSolucao) {
         this.melhorSolucao = melhorSolucao;
     }
 
@@ -71,7 +71,6 @@ public class AlgoritmoGenetico {
 
         // Avaliar
         populacao.avaliar();
-        
 
         // Recuperar o melhor indivíduo
         Random rnd = new Random();
@@ -101,15 +100,14 @@ public class AlgoritmoGenetico {
                     // Ponto de corte
                     int corte = rnd.nextInt(p1.getVariaveis().size());
 
-                    
-                    if(caso == 1){
-                      
+                    if (caso == 1) {
+
                         // Descendente 1 -> Ind1_1 + Ind2_2;
                         crossoverUmPonto(p1, p2, desc1, corte);
 
                         // Descendente 2 -> Ind2_1 + Ind1_2;
                         crossoverUmPonto(p2, p1, desc2, corte);
-                    }else if(caso == 2){
+                    } else if (caso == 2) {
                         crossoverDoisPontos(p1, p2, desc1);
                         crossoverDoisPontos(p2, p1, desc2);
                     }
@@ -145,33 +143,39 @@ public class AlgoritmoGenetico {
             novaPopulacao.getIndividuos().clear();
 
             //Imprimir a situacao atual
-            System.out.println("Gen = " + g +
-                    "\tCusto = "
-                    + populacao.getIndividuos().get(0).getFuncaoObjetivo());
+//            System.out.println("Gen = " + g +
+//                    "\tCusto = "
+//                    + populacao.getIndividuos().get(0).getFuncaoObjetivo());
         }
 
-        System.out.println("Melhor resultado: ");
-        System.out.println(populacao.getIndividuos().get(0).getVariaveis());
+//        System.out.println("Melhor resultado: ");
+//        System.out.println(populacao.getIndividuos().get(0).getVariaveis());
+//        
+        // Recuperar o melhor individuo
+        melhorSolucao = (Individuo) populacao.getIndividuos().get(0);
+        
+//        System.out.println("melhor ->"+ melhorSolucao.getFuncaoObjetivo() + " | ");
+
         return populacao.getIndividuos().get(0).getFuncaoObjetivo();
 
     }
-    
-        private void crossoverDoisPontos(Individuo pai1, Individuo pai2, Individuo filho){
+
+    private void crossoverDoisPontos(Individuo pai1, Individuo pai2, Individuo filho) {
         Random rnd = new Random();
-        int cInicial = rnd.nextInt(pai1.getVariaveis().size()/2);
+        int cInicial = rnd.nextInt(pai1.getVariaveis().size() / 2);
         int cFinal;
-        
-        do{
+
+        do {
             cFinal = rnd.nextInt(pai1.getVariaveis().size());
-        }while(cFinal>cInicial);
-        
+        } while (cFinal > cInicial);
+
         filho.getVariaveis().clear();
         filho.getVariaveis().addAll(pai1.getVariaveis());
-        
-        for(int i = cInicial;i<cFinal;i++){
+
+        for (int i = cInicial; i < cFinal; i++) {
             filho.getVariaveis().set(i, pai2.getVariaveis().get(i));
         }
-        
+
     }
 
     private void crossoverUmPonto(Individuo ind1, Individuo ind2, Individuo descendente, int corte) {

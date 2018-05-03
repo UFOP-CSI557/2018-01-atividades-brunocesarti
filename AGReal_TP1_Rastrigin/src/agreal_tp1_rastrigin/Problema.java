@@ -13,17 +13,19 @@ public class Problema {
     
     public void calcularFuncaoObjetivo(Individuo individuo) {
         
-        Double rastringinn;               
+        Double rastringin_soma;               
         Double soma = 0.0;
         
-        rastringinn = individuo.getnVar()* 10.0;
+        rastringin_soma = individuo.getnVar()* 10.0;
         
         for(int i =0; i < individuo.nVar; i++)//executar sem conversao direta
             soma += Math.pow(individuo.getVariaveis().get(i),2) - 10*Math.cos(2*Math.PI*individuo.getVariaveis().get(i));
         
-        rastringinn += soma;
+        rastringin_soma += soma;
         
-        individuo.setFuncaoObjetivo(rastringinn);        
+//        System.out.println("rastrigin_soma-> "+rastringin_soma+ " | ");
+        
+        individuo.setFuncaoObjetivo(rastringin_soma);        
         
         
         

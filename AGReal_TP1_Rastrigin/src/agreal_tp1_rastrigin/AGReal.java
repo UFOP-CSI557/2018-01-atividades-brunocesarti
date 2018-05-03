@@ -22,24 +22,24 @@ public class AGReal {
         
         Problema problema = new Problema();
 
-        Integer tamanho = 400;
-        Double pCrossover = 0.9;
-        Double pMutacao = 0.08;
-        Integer geracoes = 300;
+        Integer tamanho = 400;      // 400
+        Double pCrossover = 0.9;    // 0.9
+        Double pMutacao = 0.08;     // 0.8
+        Integer geracoes = 300;     // 300
         
-        Double minimo = -5.12;
-        Double maximo = 5.12;
-        Integer nVariaveis = 100;
+        Double minimo = -5.12;      // -5.12
+        Double maximo = 5.12;       // 5.12
+        Integer nVariaveis = 100;   // 100
 
 
             
-        // Caso 1 ->
+        // Caso 1 -> crossoverUmPonto
         AlgoritmoGenetico ag1 = new AlgoritmoGenetico(tamanho, pCrossover, pMutacao, geracoes, problema, minimo, maximo, nVariaveis, 1);
-        // Caso 2 ->
+        // Caso 2 -> crossoverDoisPontos
         AlgoritmoGenetico ag2 = new AlgoritmoGenetico(tamanho, pCrossover, pMutacao, geracoes, problema, minimo, maximo, nVariaveis, 2);
 
-        Double result = 0.0;
-        for (int c = 1; c <= 30; c++) {
+        Double resultado = 555.0;
+        for (int cases = 1; cases <= 30; cases++) {
             ArrayList<Integer> casos = new ArrayList<>(Arrays.asList(1, 2));
             Collections.shuffle(casos);
 
@@ -48,18 +48,18 @@ public class AGReal {
                 switch (i) {
                     case 1:
                         ag1.executar();
-                        result = ag1.getMelhorSolucao().getFuncaoObjetivo();
+                        resultado = ag1.getMelhorSolucao().getFuncaoObjetivo();
                         break;
                     case 2:
                         ag2.executar();
-                        result = ag2.getMelhorSolucao().getFuncaoObjetivo();
+                        resultado = ag2.getMelhorSolucao().getFuncaoObjetivo();
                         break;
                 }
 
                 long endTime = System.currentTimeMillis();
                 long totalTime = endTime - startTime;
 
-                System.out.println(c + "; " + i + "; " + result + "; " + totalTime);
+                System.out.println("Execucao: "+cases + "; " + "Caso: Croosover "+  i + " ponto(s); " + "Resultado FO: " + resultado + "; " + " Tempo gasto:"+ totalTime);
                 System.out.flush();
 
             }
