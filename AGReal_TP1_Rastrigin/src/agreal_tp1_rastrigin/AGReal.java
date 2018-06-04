@@ -23,8 +23,8 @@ public class AGReal {
         Problema problema = new Problema();
 
         Integer tamanho = 400;      // 400
-        Double pCrossover = 0.9;    // 0.9
-        Double pMutacao = 0.08;     // 0.8
+        Double pCrossover = 0.5;    // 0.9
+        Double pMutacao = 0.8;     // 0.8
         Integer geracoes = 300;     // 300
         
         Double minimo = -5.12;      // -5.12
@@ -39,6 +39,8 @@ public class AGReal {
         AlgoritmoGenetico ag2 = new AlgoritmoGenetico(tamanho, pCrossover, pMutacao, geracoes, problema, minimo, maximo, nVariaveis, 2);
 
         Double resultado = 555.0;
+        System.out.println("Execucao;Caso;Fo;Tempogasto;");
+
         for (int cases = 1; cases <= 30; cases++) {
             ArrayList<Integer> casos = new ArrayList<>(Arrays.asList(1, 2));
             Collections.shuffle(casos);
@@ -59,8 +61,11 @@ public class AGReal {
                 long endTime = System.currentTimeMillis();
                 long totalTime = endTime - startTime;
 
-                System.out.println("Execucao: "+cases + "; " + "Caso: Croosover "+  i + " ponto(s); " + "Resultado FO: " + resultado + "; " + " Tempo gasto:"+ totalTime);
-                System.out.flush();
+//                System.out.println("Execucao: "+cases + "; " + "Caso: Croosover "+  i + " ponto(s); " + "Resultado FO: " + resultado + "; " + " Tempo gasto:"+ totalTime);
+//                    System.out.println("Execucao: "+cases+"->"+i+"; "+totalTime+";");
+
+            System.out.println(cases+";"+i+";"+resultado+";"+totalTime+";");
+            System.out.flush();
 
             }
 
