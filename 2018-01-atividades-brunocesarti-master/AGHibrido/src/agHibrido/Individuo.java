@@ -3,14 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package agrealProvaFinal;
+package agHibrido;
 
 import java.util.ArrayList;
 import java.util.Random;
 
 /**
  *
- * @author fernando
+ * @author Bruno
  */
 public class Individuo implements Comparable<Individuo>{
     

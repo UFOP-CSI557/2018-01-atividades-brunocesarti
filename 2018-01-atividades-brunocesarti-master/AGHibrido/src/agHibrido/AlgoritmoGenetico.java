@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package agrealProvaFinal;
+package agHibrido;
 
 import java.util.Collections;
 import java.util.Random;
@@ -12,7 +12,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author fernando
+ * @author Bruno
  */
 public class AlgoritmoGenetico {
 

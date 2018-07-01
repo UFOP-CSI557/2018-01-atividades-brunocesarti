@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package agrealProvaFinal;
+package agHibrido;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11,9 +11,9 @@ import java.util.Collections;
 
 /**
  *
- * @author fernando
+ * @author Bruno
  */
-public class AGReal {
+public class AGHibrido {
 
     /**
      * @param args the command line arguments
@@ -23,8 +23,8 @@ public class AGReal {
         Problema problema = new Problema();
 
         Integer tamanho = 100;     // 100 tamanho da populacao 
-        Double pCrossover = 0.7;   // 0.9
-        Double pMutacao = 0.008;     // 0.8
+        Double pCrossover = 0.9;   // 0.9
+        Double pMutacao = 0.5;     // 0.8
         Integer geracoes = 300;    // 300 numero de gerações
         
         Double minimo = -500.0;    // -500.0 intervalo    
