@@ -45,7 +45,9 @@ public class ESRealHibridoMain {
         ESRealHibrido esh2 = new ESRealHibrido(minimo, maximo, nVariaveis, problema, mu, lambda, geracoes, pMutacao, 2);
 
         Individuo melhor = null;
-               
+                
+        System.out.println("NumeroDaExecucao;Caso;ResultadoDaFo;TempoDeExecucaoEmMilessegundos;");
+       
         for (int cases = 1; cases <= 30; cases++) {
             ArrayList<Integer> casos = new ArrayList<>(Arrays.asList(1, 2));
             Collections.shuffle(casos);
