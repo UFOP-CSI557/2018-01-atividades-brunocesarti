@@ -18,7 +18,7 @@ import solucao.Individuo;
  * @author Bruno
  */
 public class ESRealHibridoMain {
-    
+
     /**
      * @param args the command line arguments
      */
@@ -27,7 +27,7 @@ public class ESRealHibridoMain {
         Double minimo = -500.0; // Minimo da funcao    DEFAULT
         Double maximo = 500.0;  // Maximo da funcao    DEFAULT
         Integer nVariaveis = 50; // Numero de Variaveis    DEFAULT
-        
+
         Problema problema = new ProblemaSchwefel7(nVariaveis);  // Problema Schwefel 7    DEFAULT
 
         // Parametros - ESHibrido
@@ -37,17 +37,17 @@ public class ESRealHibridoMain {
         Double pMutacao = 0.008; // mutacao - aplicacao ao descendente - variacao/perturbacao
 
         ESRealHibrido esh1 = new ESRealHibrido(minimo, maximo, nVariaveis, problema, mu, lambda, geracoes, pMutacao, 1);
-       
+
         // Variando dados para segunda instancia
         lambda = 800;
         pMutacao = 0.003;
-        
+
         ESRealHibrido esh2 = new ESRealHibrido(minimo, maximo, nVariaveis, problema, mu, lambda, geracoes, pMutacao, 2);
 
         Individuo melhor = null;
-                
-        System.out.println("NumeroDaExecucao;Caso;ResultadoDaFo;TempoDeExecucaoEmMilessegundos;");
-       
+
+        System.out.println("NumeroDaExecucao;ResultadoDaFo;TempoDeExecucaoEmMilessegundos;Caso;");
+
         for (int cases = 1; cases <= 30; cases++) {
             ArrayList<Integer> casos = new ArrayList<>(Arrays.asList(1, 2));
             Collections.shuffle(casos);
@@ -55,7 +55,7 @@ public class ESRealHibridoMain {
             for (Integer i : casos) {
                 long startTime = System.currentTimeMillis();
                 switch (i) {
-                    case 1: 
+                    case 1:
                         melhor = esh1.executar();
                         break;
                     case 2:
@@ -66,12 +66,11 @@ public class ESRealHibridoMain {
                 long endTime = System.currentTimeMillis();
                 long totalTime = endTime - startTime;
 
-                System.out.println(cases+";"+i+";"+melhor.getFuncaoObjetivo()+";"+totalTime+";");
+                System.out.println(cases + ";"+ melhor.getFuncaoObjetivo() + ";" + totalTime + ";" + i + ";" );
                 System.out.flush();
             }
 
         }
-        
-        
+
     }
 }
