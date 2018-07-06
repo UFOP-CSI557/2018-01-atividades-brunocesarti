@@ -5,7 +5,7 @@ import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Main {
+public class AGQPAMain {
 
     static int tamanhoInstancia;
     static int solucao;
@@ -14,26 +14,25 @@ public class Main {
 
     public static void main(String[] args) {
 
-        AGQpa ag = null;
-        for (int i = 0; i < 1; i++) {
+        AGQPA ag = null;
+        for (int i = 0; i < 2; i++) {
 
 //              DEFINICAO DE´PARAMETROS
             String nomeInstancia = "C:/Users/Bruno/Documents/NetBeansProjects/CSI557-Computacao-Evolucionaria-master/Codes/TP_Final/esc16a.dat";
             String solucaoInstancia = "C:/Users/Bruno/Documents/NetBeansProjects/CSI557-Computacao-Evolucionaria-master/Codes/TP_Final/esc16a.sln";
-            
-            int tamanhoPop = tamanhoInstancia;
-            double pMutacao = 0.4;
-            double pCrossover = 0.5;
-            int geracoes = 100;
-            long parada = 10;
-            int numDescendentes = tamanhoInstancia;
-            // tamanhoInstancia definido global;
+            int tamanhoPop = 30;    // Default -> 30  // TAMANHO DA POPULACAO 
+            double pMutacao = 0.3;  // Default -> 0.3   // TAXA DE MUTACAO
+            double pCrossover = 0.2;    // Default -> 0.2    // TAXA DE CROSSOVER
+            int geracoes = 100;     // Default ->100    // NUMERO DE GERACOES - ESTA OPÇÃO NAO ESTA SENDO UTILIZADA NO MOMENTO POIS O CRITERIO DE PARADA ATUAL E BASEADO NO TEMPO ESTIPULADO, CONTUDO ESTA DISPONIVEL PARA CASO QUEIRA USA-LA 
+            long parada = 20; // Default -> O VALOR 10 equivale a aproximadamente 1 min  // CRITERIO DE PARADA EM FUNCAO DO TEMPO
+            int numDescendentes = 10; // Default -> 10  // NUMERO DE DESCENDENTES
 
             lerArquivo(nomeInstancia, solucaoInstancia);
             long start = System.nanoTime();
 
 //                    System.out.println("Fluxo: " + fluxo + " Distancia: " + distancia + " Tamanho Instancia: " + tamanhoInstancia);
-            ag = new AGQpa(fluxo, distancia, tamanhoInstancia, numDescendentes, tamanhoPop, parada, pMutacao, pCrossover,geracoes);
+            ag = new AGQPA(fluxo, distancia, tamanhoInstancia, 
+                    numDescendentes, tamanhoPop, parada, pMutacao, pCrossover,geracoes);
 
             Individuo melhor = ag.gerarSolucao();
             System.out.println("Melhor individuo: " + melhor.toString());
@@ -45,6 +44,7 @@ public class Main {
             System.out.println("Gap: " + gap);
 
             nomeInstancia = "esc16a.dat";
+//            ARQUIVO,NUMERO DE DESENDENTES,TAMANHO DA POPULACAO,CRITERIO DE PARADA,TAXA DE MUTACAO,TAXA DE CROSSOVER, NUMERO DE GERACOES,GENES,RESULTADO,SOLUCAO,GAP,TEMPO DE EXECUCAO
             CsvFile.escreverResultado(nomeInstancia, numDescendentes, tamanhoPop, parada, pMutacao, pCrossover, geracoes,melhor.genesToSrting(), melhor.getFitness(), solucao, gap, segundos);
         }
     }

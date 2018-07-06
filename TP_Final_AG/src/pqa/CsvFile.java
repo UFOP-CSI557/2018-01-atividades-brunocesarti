@@ -4,11 +4,11 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.LinkedList;
-import static pqa.Main.solucao;
+import static pqa.AGQPAMain.solucao;
 
 public class CsvFile {
-//CsvFile.escreverResultado(nomeInstancia, numDescendentes, tamanhoPop, parada, pMutacao, pCrossover, geracoes,melhor.genesToSrting(), melhor.getFitness(), solucao, gap, segundos);
-public static void escreverResultado(String arquivo, int numDescendentes, int tamanhoPop, long tempoParada, double taxaMutacao, double taxaCrossover, int geracoes, String genes, int resultado, int solucao, double gap, double segundos) {
+
+    public static void escreverResultado(String arquivo, int numDescendentes, int tamanhoPop, long tempoParada, double taxaMutacao, double taxaCrossover, int geracoes, String genes, int resultado, int solucao, double gap, double segundos) {
  
         String COMMA_DELIMITER = ",";
         String NEW_LINE_SEPARATOR = "\n";
@@ -52,12 +52,11 @@ public static void escreverResultado(String arquivo, int numDescendentes, int ta
                 sb.append(NEW_LINE_SEPARATOR);
                 sb.append(arquivo);
                 sb.append(COMMA_DELIMITER);
-sb.append(COMMA_DELIMITER);
+                sb.append(COMMA_DELIMITER);
                 sb.append(String.valueOf(numDescendentes));
                 sb.append(COMMA_DELIMITER);
                 sb.append(String.valueOf(tamanhoPop));
-sb.append(COMMA_DELIMITER);
-
+                sb.append(COMMA_DELIMITER);
                 sb.append(String.valueOf(tempoParada));
                 sb.append(COMMA_DELIMITER);
                 sb.append(String.valueOf(taxaMutacao));

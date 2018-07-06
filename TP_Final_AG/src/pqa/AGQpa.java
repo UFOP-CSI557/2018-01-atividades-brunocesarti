@@ -7,12 +7,10 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
-public class AGQpa {
+public class AGQPA {
 
 //    ===========================================================================================================================
-    
 //                              Criterios da Kelly
-    
 //    static int tamanhoInstancia;
 //    static ArrayList<ArrayList<Integer>> fluxo;
 //    static ArrayList<ArrayList<Integer>> distancia;
@@ -22,17 +20,30 @@ public class AGQpa {
 //    static double taxaMutacao; // probabilidade de se aplicar mutacao
 //    static double taxaBuscaLocal;// probabilidade de se aplicar busca local
 //    static int melhora;// numero de descendentes
-    
 //    ============================================================================================================================
     // FBO: Parâmetros via linha de comando?
     // GAP = (Ro - Rl) / Rl
     // FBO: Classe para o problema?
+//    -----------------------------------------------------------------------------------------
+//    static int tamanhoInstancia;
+//    static ArrayList<ArrayList<Integer>> fluxo;
+//    static ArrayList<ArrayList<Integer>> distancia;
+//    static int mu;// numero de pais selecionados
+//    static int lambda;// numero de descendentes
+//    static long tempoExecucao;// numero de iteracoes
+//    static double taxaMutacao; // probabilidade de se aplicar mutacao
+//    static double taxaBuscaLocal;// probabilidade de se aplicar busca local
+//    static int melhora;// numero de descendentes
+//
+//    static ArrayList<Individuo> populacaoInicial = new ArrayList<Individuo>();
+//    static ArrayList<Individuo> melhoresIndividuos = new ArrayList<Individuo>();
+//    ------------------------------------------------------------------------------------------
     static int tamanhoInstancia;
     static ArrayList<ArrayList<Integer>> fluxo;
     static ArrayList<ArrayList<Integer>> distancia;
 //    static int mu;// numero de pais selecionados
 //    static int lambda;// numero de descendentes
-    
+
     static int numDescendentes;
     static int tamanhoPop;
     static long tempoExecucao;// numero de iteracoes
@@ -40,21 +51,22 @@ public class AGQpa {
     static double taxaCrossover;// probabilidade de se aplicar busca local
     static int geracoes;// numero de descendentes
 
-
     static ArrayList<Individuo> populacaoInicial = new ArrayList<Individuo>();
     static ArrayList<Individuo> melhoresIndividuos = new ArrayList<Individuo>();
-    
-//            ag = new AGQpa(fluxo, distancia, tamanhoInstancia, numDescendentes, tamanhoPop, parada, pMutacao, pCrossover,geracoes);
-    public AGQpa(ArrayList<ArrayList<Integer>> fluxo, ArrayList<ArrayList<Integer>> distancia,
-            int tamanhoInstancia, int numDescendentes, int tamanhoPop, long tempoExecucao, double taxaMutacao, double taxaCrossover, int geracoes) {
+
+//            ag = new AGQPA(fluxo, distancia, tamanhoInstancia, numDescendentes, tamanhoPop, parada, pMutacao, pCrossover,geracoes);
+    public AGQPA(ArrayList<ArrayList<Integer>> fluxo, ArrayList<ArrayList<Integer>> distancia, int tamanhoInstancia,
+            int numDescendentes, int tamanhoPop, long tempoExecucao, double taxaMutacao, double taxaCrossover, int geracoes) {
         super();
-        AGQpa.fluxo = fluxo;
-        AGQpa.distancia = distancia;
-        AGQpa.tamanhoInstancia = tamanhoInstancia;
-        AGQpa.tamanhoPop = tamanhoPop;
-        AGQpa.tempoExecucao = tempoExecucao;
-        AGQpa.taxaMutacao = taxaMutacao;
-        AGQpa.taxaCrossover = taxaCrossover;
+        AGQPA.fluxo = fluxo;
+        AGQPA.distancia = distancia;
+        AGQPA.tamanhoInstancia = tamanhoInstancia;
+        AGQPA.numDescendentes = numDescendentes;
+        AGQPA.tamanhoPop = tamanhoPop;
+        AGQPA.tempoExecucao = tempoExecucao;
+        AGQPA.taxaMutacao = taxaMutacao;
+        AGQPA.taxaCrossover = taxaCrossover;
+        AGQPA.geracoes = geracoes;
     }
 
     public static Individuo gerarSolucao() {
@@ -68,13 +80,13 @@ public class AGQpa {
 
         // ordenar populacao inicial pelo fitness
         Collections.sort(populacaoInicial);
-        System.out.println("Populacao Inicial gerada: " + populacaoInicial.toString());
+//        System.out.println("Populacao Inicial gerada: " + populacaoInicial.toString());
         // pega o melhor individuo na populacao inicial
         Individuo melhor = populacaoInicial.get(0);
-        System.out.println("Melhor individuo da Populacao Inicial gerada: " + melhor.toString());
+//        System.out.println("Melhor individuo da Populacao Inicial gerada: " + melhor.toString());
 
         long start_time = System.currentTimeMillis();
-//        long end_time = start_time + tempoExecucao * 60000;
+//        long end_time = start_time + tempoExecucao * 60000; |- nesta escala cada prada = 1 equivale a 1 minuto, multiplicando por 6000 cada 10 no parada equivale a 1 minuto
         long end_time = start_time + tempoExecucao * 6000;
 
         while (System.currentTimeMillis() < end_time) {
@@ -82,15 +94,24 @@ public class AGQpa {
             // FBO: Debug -> imprimir o valor da FO e do GAP ->
             // evoluÃ§Ã£o/convergÃªncia.
             // insere os melhores individuos da populacao inicial em um array
-            for (int i = 0; i < tamanhoPop; i++) {
+            for (int i = 0; i < numDescendentes; i++) {
+//                System.out.println("gene selecionado: " + populacaoInicial.get(i));
+
                 melhoresIndividuos.add(populacaoInicial.get(i));
             }
 
-            // populacao inicial recebe os mu melhores individuos
+            // populacao inicial recebe os melhores individuos
             populacaoInicial.clear();
+//            System.out.println("populacao no melhor inicial: " + melhoresIndividuos);
+
             for (Individuo ind : melhoresIndividuos) {
                 populacaoInicial.add(Individuo.deepClone(ind));
+//                System.out.println("populacao incremento AG: " + populacaoInicial);
+
             }
+//            System.out.println("populacao no AG: " + populacaoInicial);
+
+//            System.out.println("populacao antes do AG: " + populacaoInicial);
 
 //=================================== parte da Heuristica Usando AG =======================================
             /*
@@ -100,7 +121,7 @@ public class AGQpa {
              */
             int ind1, ind2;
             Random rnd = new Random();
-            LinkedList<Integer> genesC;
+
             for (Individuo ind : melhoresIndividuos) {
                 for (int i = 0; i < tamanhoInstancia; i++) {
                     // Crossover
@@ -147,6 +168,7 @@ public class AGQpa {
                         // Inserir na nova população
                         populacaoInicial.add(desc1);
                         populacaoInicial.add(desc2);
+//                        System.out.println("populacao no AG: " + populacaoInicial);
 
                     }
 
@@ -158,6 +180,7 @@ public class AGQpa {
 
             // ordenar populacao inicial pelo fitness
             Collections.sort(populacaoInicial);
+//            System.out.println("teste gerar populacao: " + populacaoInicial);
 
             // pega o melhor individuo na populacao inicial
             melhor = populacaoInicial.get(0);
@@ -175,7 +198,7 @@ public class AGQpa {
         // - gerar array com o tamanho da instância - 1-n;
         // - usar Collections.shuffle() para embaralhar o array
         LinkedList<Integer> genes = new LinkedList<Integer>();
-//                    System.out.println("teste gerar populacao: "+ tamanhoInstancia);
+//                    System.out.println("teste gerar populacao: "+ tamanhoInstancia + "nDesc:"+numDescendentes);
 
         for (int i = 1; i <= tamanhoInstancia; i++) {
             genes.add(i);
@@ -188,7 +211,7 @@ public class AGQpa {
 
             // cria um novo individuo e o insere na populacao inicial
             Individuo individuo = new Individuo();
-            System.out.println("genes " + i + ": " + genes);
+//            System.out.println("individuo " + i + ": " + genes);
 
             individuo.setGenes(genes);
             individuo.setFitness(calculaCusto(genes));
