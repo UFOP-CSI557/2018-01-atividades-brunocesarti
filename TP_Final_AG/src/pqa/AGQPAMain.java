@@ -14,38 +14,52 @@ public class AGQPAMain {
 
     public static void main(String[] args) {
 
+        String instance[] = new String[3];
+        String soluction[] = new String[3];
+        instance[0] = "esc16a.dat";
+        instance[1] = "esc32g.dat";
+        instance[2] = "esc128.dat";
+
+        soluction[0] = "esc16a.sln";
+        soluction[1] = "esc32g.sln";
+        soluction[2] = "esc128.sln";
+
         AGQPA ag = null;
-        for (int i = 0; i < 2; i++) {
+        for (int j = 0; j < 10; j++) {
+
+            for (int i = 0; i < 3; i++) {
 
 //              DEFINICAO DE´PARAMETROS
-            String nomeInstancia = "C:/Users/Bruno/Documents/NetBeansProjects/CSI557-Computacao-Evolucionaria-master/Codes/TP_Final/esc16a.dat";
-            String solucaoInstancia = "C:/Users/Bruno/Documents/NetBeansProjects/CSI557-Computacao-Evolucionaria-master/Codes/TP_Final/esc16a.sln";
-            int tamanhoPop = 30;    // Default -> 30  // TAMANHO DA POPULACAO 
-            double pMutacao = 0.3;  // Default -> 0.3   // TAXA DE MUTACAO
-            double pCrossover = 0.2;    // Default -> 0.2    // TAXA DE CROSSOVER
-            int geracoes = 100;     // Default ->100    // NUMERO DE GERACOES - ESTA OPÇÃO NAO ESTA SENDO UTILIZADA NO MOMENTO POIS O CRITERIO DE PARADA ATUAL E BASEADO NO TEMPO ESTIPULADO, CONTUDO ESTA DISPONIVEL PARA CASO QUEIRA USA-LA 
-            long parada = 20; // Default -> O VALOR 10 equivale a aproximadamente 1 min  // CRITERIO DE PARADA EM FUNCAO DO TEMPO
-            int numDescendentes = 10; // Default -> 10  // NUMERO DE DESCENDENTES
+//            String nomeInstancia = "C:/Users/Bruno/Documents/NetBeansProjects/CSI557-Computacao-Evolucionaria-master/Codes/TP_Final/esc16a.dat";
+//            String solucaoInstancia = "C:/Users/Bruno/Documents/NetBeansProjects/CSI557-Computacao-Evolucionaria-master/Codes/TP_Final/esc16a.sln";
+                String nomeInstancia = instance[i];
+                String solucaoInstancia = soluction[i];
+                int tamanhoPop = 30;    // Default -> 30  // TAMANHO DA POPULACAO 
+                double pMutacao = 0.3;  // Default -> 0.3   // TAXA DE MUTACAO
+                double pCrossover = 0.2;    // Default -> 0.2    // TAXA DE CROSSOVER
+//            int geracoes = 100;     // Default ->100    // NUMERO DE GERACOES - ESTA OPÇÃO NAO ESTA SENDO UTILIZADA NO MOMENTO POIS O CRITERIO DE PARADA ATUAL E BASEADO NO TEMPO ESTIPULADO, CONTUDO ESTA DISPONIVEL PARA CASO QUEIRA USA-LA 
+                long parada = 10; // Default -> O VALOR 10 equivale a aproximadamente 1 min  // CRITERIO DE PARADA EM FUNCAO DO TEMPO
+                int numDescendentes = 10; // Default -> 10  // NUMERO DE DESCENDENTES
 
-            lerArquivo(nomeInstancia, solucaoInstancia);
-            long start = System.nanoTime();
+                lerArquivo(nomeInstancia, solucaoInstancia);
+                long start = System.nanoTime();
 
 //                    System.out.println("Fluxo: " + fluxo + " Distancia: " + distancia + " Tamanho Instancia: " + tamanhoInstancia);
-            ag = new AGQPA(fluxo, distancia, tamanhoInstancia, 
-                    numDescendentes, tamanhoPop, parada, pMutacao, pCrossover,geracoes);
+                ag = new AGQPA(fluxo, distancia, tamanhoInstancia,
+                        numDescendentes, tamanhoPop, parada, pMutacao, pCrossover, solucao);
 
-            Individuo melhor = ag.gerarSolucao();
-            System.out.println("Melhor individuo: " + melhor.toString());
+                Individuo melhor = ag.gerarSolucao();
+                System.out.println("Melhor individuo: " + melhor.toString());
 
-            long elapsedTime = System.nanoTime() - start;
-            double segundos = (double) elapsedTime / 1000000000.0;
+                long elapsedTime = System.nanoTime() - start;
+                double segundos = (double) elapsedTime / 1000000000.0;
 
-            double gap = (double) (melhor.getFitness() - solucao) / solucao;
-            System.out.println("Gap: " + gap);
+                double gap = (double) (melhor.getFitness() - solucao) / solucao;
+                System.out.println("Gap: " + gap);
 
-            nomeInstancia = "esc16a.dat";
 //            ARQUIVO,NUMERO DE DESENDENTES,TAMANHO DA POPULACAO,CRITERIO DE PARADA,TAXA DE MUTACAO,TAXA DE CROSSOVER, NUMERO DE GERACOES,GENES,RESULTADO,SOLUCAO,GAP,TEMPO DE EXECUCAO
-            CsvFile.escreverResultado(nomeInstancia, numDescendentes, tamanhoPop, parada, pMutacao, pCrossover, geracoes,melhor.genesToSrting(), melhor.getFitness(), solucao, gap, segundos);
+                CsvFile.escreverResultado(nomeInstancia, numDescendentes, tamanhoPop, parada, pMutacao, pCrossover, melhor.genesToSrting(), melhor.getFitness(), solucao, gap, segundos);
+            }
         }
     }
 

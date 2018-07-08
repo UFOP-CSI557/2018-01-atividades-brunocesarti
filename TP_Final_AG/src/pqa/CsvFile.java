@@ -8,7 +8,7 @@ import static pqa.AGQPAMain.solucao;
 
 public class CsvFile {
 
-    public static void escreverResultado(String arquivo, int numDescendentes, int tamanhoPop, long tempoParada, double taxaMutacao, double taxaCrossover, int geracoes, String genes, int resultado, int solucao, double gap, double segundos) {
+    public static void escreverResultado(String arquivo, int numDescendentes, int tamanhoPop, long tempoParada, double taxaMutacao, double taxaCrossover, String genes, int resultado, int solucao, double gap, double segundos) {
  
         String COMMA_DELIMITER = ",";
         String NEW_LINE_SEPARATOR = "\n";
@@ -32,8 +32,6 @@ public class CsvFile {
                 sb.append(COMMA_DELIMITER);
                 sb.append(String.valueOf(taxaCrossover));
                 sb.append(COMMA_DELIMITER);
-                sb.append(geracoes);
-                sb.append(COMMA_DELIMITER);
                 sb.append(genes);
                 sb.append(COMMA_DELIMITER);
                 sb.append(String.valueOf(resultado));
@@ -47,7 +45,7 @@ public class CsvFile {
 
             } else {
                 fileWriter = new FileWriter(file);
-                String FILE_HEADER = "ARQUIVO,NUMERO DE DESENDENTES,TAMANHO DA POPULACAO,CRITERIO DE PARADA,TAXA DE MUTACAO,TAXA DE CROSSOVER, NUMERO DE GERACOES,GENES,RESULTADO,SOLUCAO,GAP,TEMPO DE EXECUCAO";
+                String FILE_HEADER = "ARQUIVO,NUMERO DE DESENDENTES,TAMANHO DA POPULACAO,CRITERIO DE PARADA,TAXA DE MUTACAO,TAXA DE CROSSOVER,GENES,RESULTADO,SOLUCAO,GAP,TEMPO DE EXECUCAO";
                 sb.append(FILE_HEADER.toString());
                 sb.append(NEW_LINE_SEPARATOR);
                 sb.append(arquivo);
@@ -62,8 +60,6 @@ public class CsvFile {
                 sb.append(String.valueOf(taxaMutacao));
                 sb.append(COMMA_DELIMITER);
                 sb.append(String.valueOf(taxaCrossover));
-                sb.append(COMMA_DELIMITER);
-                sb.append(geracoes);
                 sb.append(COMMA_DELIMITER);
                 sb.append(genes);
                 sb.append(COMMA_DELIMITER);

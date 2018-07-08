@@ -49,14 +49,14 @@ public class AGQPA {
     static long tempoExecucao;// numero de iteracoes
     static double taxaMutacao; // probabilidade de se aplicar mutacao
     static double taxaCrossover;// probabilidade de se aplicar busca local
-    static int geracoes;// numero de descendentes
+    static int solucao;// numero de descendentes
 
     static ArrayList<Individuo> populacaoInicial = new ArrayList<Individuo>();
     static ArrayList<Individuo> melhoresIndividuos = new ArrayList<Individuo>();
 
 //            ag = new AGQPA(fluxo, distancia, tamanhoInstancia, numDescendentes, tamanhoPop, parada, pMutacao, pCrossover,geracoes);
     public AGQPA(ArrayList<ArrayList<Integer>> fluxo, ArrayList<ArrayList<Integer>> distancia, int tamanhoInstancia,
-            int numDescendentes, int tamanhoPop, long tempoExecucao, double taxaMutacao, double taxaCrossover, int geracoes) {
+            int numDescendentes, int tamanhoPop, long tempoExecucao, double taxaMutacao, double taxaCrossover, int solucao) {
         super();
         AGQPA.fluxo = fluxo;
         AGQPA.distancia = distancia;
@@ -66,7 +66,7 @@ public class AGQPA {
         AGQPA.tempoExecucao = tempoExecucao;
         AGQPA.taxaMutacao = taxaMutacao;
         AGQPA.taxaCrossover = taxaCrossover;
-        AGQPA.geracoes = geracoes;
+        AGQPA.solucao = solucao;
     }
 
     public static Individuo gerarSolucao() {
@@ -87,7 +87,7 @@ public class AGQPA {
 
         long start_time = System.currentTimeMillis();
 //        long end_time = start_time + tempoExecucao * 60000; |- nesta escala cada prada = 1 equivale a 1 minuto, multiplicando por 6000 cada 10 no parada equivale a 1 minuto
-        long end_time = start_time + tempoExecucao * 6000;
+        long end_time = start_time + tempoExecucao * 60000;
 
         while (System.currentTimeMillis() < end_time) {
 
@@ -185,6 +185,10 @@ public class AGQPA {
             // pega o melhor individuo na populacao inicial
             melhor = populacaoInicial.get(0);
             System.out.println("Melhor (" + System.currentTimeMillis() + "): " + melhor.toString());
+            
+            if (melhor.getFitness() == solucao ) {
+                break;
+            }
 
         }
 
